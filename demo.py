@@ -36,12 +36,16 @@ if __name__ == '__main__':
     dst_dir = args.out_dir
     Path(dst_dir).mkdir(parents=True, exist_ok=True)
 
+    Enet_ckpt = 'models/G_w_checkpoint_13820.pt'
+    Tnet_ckpt = 'models/L_w_checkpoint_27640.pt'
+    
     netG = GlobalWarper().to('cuda')
-    netG.load_state_dict(torch.load(args['Enet_ckpt'])['G'])
+    print(args.Enet_ckpt)
+    netG.load_state_dict(torch.load(Enet_ckpt)['G'])
     netG.eval()
 
     netL = LocalWarper().to('cuda')
-    netL.load_state_dict(torch.load(args['Tnet_ckpt'])['L'])
+    netL.load_state_dict(torch.load(Tnet_ckpt)['L'])
     netL.eval()
 
     warpUtil = WarperUtil(64).to('cuda')
